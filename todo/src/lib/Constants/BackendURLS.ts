@@ -8,3 +8,6 @@ export const authUrls = {
 export const profileUrls={
     viewProfile:"/profile/view"
 }
+export const taskUrls={
+    addTask:"/task/add"
+}

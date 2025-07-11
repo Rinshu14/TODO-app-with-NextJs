@@ -3,11 +3,17 @@ import { Avatar, AvatarImage } from '../../../components/ui/avatar'
 import { Mail, Phone } from 'lucide-react';
 import { Separator } from "@/components/ui/separator"
 import { ChartNoAxesColumn } from 'lucide-react';
+import { Button } from '@/components';
+// import { useUserStore } from '@/app/store/user--';
+import useCentralStore from '@/app/store/CentralStore';
 
 const Profile = () => {
+    //   const bears = useBoundStore((state) => state.bears)
+    //const userData = useUserStore((state) => state.user)
+    const userData = useCentralStore((state) => state.user)
 
     return (
-        <div className='flex bg-modal-background '>
+        <div className=' bg-modal-background w-96 p-2 py-3 m-auto mt-10 profile '>
             <div className='userInfo flex justify-center items-center '>
 
                 <Avatar className="w-24 h-24 rounded-lg">
@@ -15,47 +21,58 @@ const Profile = () => {
                         className='rounded-[50%]'
                     />
                 </Avatar>
-                <div className='mx-5'>
+                <div className='mx-5 '>
                     <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
                         Rinshu
                     </h4>
-                    <div className='my-3'>
-
+                    <div className=''>
                         <span className='flex'> <Mail /><p className='break-all mx-2'>rajputrinshu@gmail.com</p></span>
                         <span className='flex'> <Phone /><p className='break-all mx-2'>1234567890</p></span>
                     </div>
-
-                    <Separator />
-                    <div className='mt-3'>
-                        <span className='flex'><ChartNoAxesColumn /><p className='text-xl mx-1.5'> Task Stat</p></span>
-                        <div className='rounded-lg bg-sidebar-accent p-2 mt-3'>
-                            <span className='flex justify-around'>
-                                <p className='break-all mx-2'>rajputrinshu@gmail.com</p>
-                                <p className='break-all mx-2'>30</p>
-                            </span>
-                        </div>
-                        <div className='rounded-lg bg-sidebar-accent p-2 mt-3'>
-                            <span className='flex justify-around'>
-                                <p className='break-all mx-2'>rajputrinshu@gmail.com</p>
-                                <p className='break-all mx-2'>30</p>
-                            </span>
-                        </div>
-                        <div className='rounded-lg bg-sidebar-accent p-2 mt-3'>
-                            <span className='flex justify-around'>
-                                <p className='break-all mx-2'>rajputrinshu@gmail.com</p>
-                                <p className='break-all mx-2'>30</p>
-                            </span>
-                        </div>
-                    </div>
-
                 </div>
-
             </div>
-            <div className='taskInfo'>
-
+            <Separator className='my-2' />
+            <div className='flex justify-around'>
+                <Button className='cursor-pointer'>Edit Profile</Button>
+                <Button className='cursor-pointer'>Change Password</Button>
             </div>
+            <Separator className='my-2' />
+            <div className='px-6'>
+                <span className='flex'><ChartNoAxesColumn /><p className='text-xl mx-1.5'> Task Stat</p></span>
+                <div className='rounded-lg bg-sidebar-accent p-2 mt-3'>
+                    <span className='flex justify-between'>
+                        <p className='break-all mx-2'>Total Task</p>
+                        <p className='break-all mx-2 '>30</p>
+                    </span>
+                </div>
+                <div className='rounded-lg bg-sidebar-accent p-2 mt-3'>
+                    <span className='flex justify-between'>
+                        <p className='break-all mx-2'>Completed Tasks</p>
+                        <p className='break-all mx-2 text-green-700'>30</p>
+                    </span>
+                </div>
+                <div className='rounded-lg bg-sidebar-accent p-2 mt-3'>
+                    <span className='flex justify-between'>
+                        <p className='break-all mx-2'>Pending Tasks</p>
+                        <p className='break-all mx-2 text-red-800'>30</p>
+                    </span>
+                </div>
+                <div className='rounded-lg bg-sidebar-accent p-2 mt-3'>
+                    <span className='flex justify-between'>
+                        <p className='break-all mx-2'>Categories</p>
+                        <p className='break-all mx-2 text-red-800'>30</p>
+                    </span>
+                </div>
+            </div>
+
+            <Separator className='my-2' />
+            <Button variant="destructive" className='w-[100%] cursor-pointer'> Logout</Button>
+
+
 
         </div>
+
+
     )
 }
 

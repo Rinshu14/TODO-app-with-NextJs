@@ -6,11 +6,12 @@ import bodyParser from "body-parser";
 import cors from "cors"
 import cookieParser from "cookie-parser"
 import profileRouter from "./Routers/profileRouter";
+import taskRouter from "./Routers/taskRouter";
 
 class App {
 
     app;
-constructor() {
+    constructor() {
         //everything that we want to register whenevr a app runs write 
         // in this consturvtor as it runs as soon as we initialize the instace of app
         this.app = express();
@@ -20,7 +21,7 @@ constructor() {
         this.routes();
         dotEnvConfig();
         new dbConfig();
- }
+    }
 
     listen() {
         this.app.listen(process.env.PORT, () => {
@@ -32,6 +33,7 @@ constructor() {
 
         this.app.use("/auth", authRouter)
         this.app.use("/profile", profileRouter)
+        this.app.use("/task", taskRouter)
         this.app.use("/", (req, res) => {
             console.log("in app route")
             res.send("hey hii from route")

@@ -41,7 +41,7 @@ class Mailer {
                 or copy and paste the link below in your browser. <br> http://localhost:${process.env.PORT}/auth/verifyemail?token=${verificationToken}
                 </p>`
             });
-            console.log(info)
+           // console.log(info)
         }
         catch (ex) {
             if (ex instanceof Error) {

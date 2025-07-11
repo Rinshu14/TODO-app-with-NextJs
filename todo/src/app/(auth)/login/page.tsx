@@ -9,7 +9,8 @@ import { Eye, EyeOff } from "lucide-react";
 import { useRouter } from 'next/navigation'
 import useAPIPost from '@/lib/Hooks/useAPIPost'
 import { authUrls } from "../../../lib/Constants/BackendURLS"
-import { useUserStore } from '@/app/store/user'
+// import { useUserStore } from '@/app/store/user--'
+import useCentralStore from '@/app/store/CentralStore'
 
 
 interface User {
@@ -21,16 +22,15 @@ interface User {
 }
 
 const Login = () => {
-
     const [showPassword, setShowPassword] = useState(false)
     const router = useRouter();
-    const setUser = useUserStore((state) => state.setUser)
+    const setUser = useCentralStore((state) => state.setUser)
     const { trigger: login, loading } = useAPIPost(authUrls.login, {
         onSuccess: (data) => {
-            console.log(data)
+            // console.log(data)
             router.replace("/")
             if (data) {
-                setUser({...data,isLoggedIn:true})
+                setUser({ ...data, isLoggedIn: true })
             }
 
         }

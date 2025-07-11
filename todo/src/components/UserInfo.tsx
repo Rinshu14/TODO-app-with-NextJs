@@ -1,16 +1,17 @@
 
 "use client"
-import { useUserStore } from '@/app/store/user'
+// import { useUserStore } from '@/app/store/user--'
 import { Button, Avatar, AvatarImage } from '../components'
 import { authUrls } from '@/lib/Constants/BackendURLS'
 import useAPIPost from '@/lib/Hooks/useAPIPost'
 import { useRouter } from 'next/navigation'
+import useCentralStore from '@/app/store/CentralStore'
 
 
 
 const UserInfo = () => {
     const router = useRouter()
-    const clearUserStore = useUserStore((state) => state.clearUserStore)
+    const clearUserStore = useCentralStore((state) => state.clearUserStore)
     const { trigger: logout, loading } = useAPIPost(authUrls.logout, {
         onSuccess: () => {
             clearUserStore()

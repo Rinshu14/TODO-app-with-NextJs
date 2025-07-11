@@ -11,7 +11,6 @@ interface useAPIPostOptions<T = any> {
 const useAPIPost = <T = any>(url: string, options: useAPIPostOptions<T>) => {
 
     const [loading, setLoading] = useState(false)
-  //  const [data, setData] = useState(null)
     const trigger = async (data: any) => {
         try {
             setLoading(true)

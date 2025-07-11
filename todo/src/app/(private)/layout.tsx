@@ -6,6 +6,7 @@ export default function RootLayout({
 }>) {
 
     return (
+        
         <ProtectedClient>
             {children}
         </ProtectedClient>

@@ -10,9 +10,9 @@ class AuthMiddleware {
     isUserLoggedIn = async (req: Request, res: Response, next: NextFunction) => {
         try {
             console.log("in middleware")
-            console.log(req.cookies.toString())
+           // console.log(req.cookies.toString())
             let token =  (req.cookies).token
-            console.log(token)
+           // console.log(token)
             if (!token) throw new APIError("Invalid Credentials")
             let userId = verifyJwtToken(token).id
             if (userId) {

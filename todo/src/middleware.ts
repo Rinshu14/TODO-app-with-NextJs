@@ -13,7 +13,7 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/', request.nextUrl))
   }
   else if (!isPublicPath && !token) {
-  console.log("in authenticated ==" + token)
+  //console.log("in authenticated ==" + token)
     return NextResponse.redirect(new URL('/login', request.nextUrl))
   }
 

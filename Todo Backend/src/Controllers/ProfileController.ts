@@ -2,13 +2,12 @@ import { Request, Response } from "express";
 import User from "../Models/userModel"
 import APIResponse from "../lib/BaseClasses.ts/APIResponse";
 import APIError from "../lib/BaseClasses.ts/APIError"
-
 import { toUserDTO } from "../lib/Helper/UserDTOMapper";
 
 class ProfileController {
 
     getProfile = async (req: Request, res: Response) => {
-        console.log("in profile controller")
+       // console.log("in profile controller")
         try {
             let data = await User.findById(req.user?.id)
             if (data) {

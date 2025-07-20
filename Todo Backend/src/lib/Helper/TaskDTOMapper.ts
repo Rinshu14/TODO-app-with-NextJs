@@ -1,9 +1,6 @@
 
 import { ITaskModel, status, priority, category } from "Models/taskModel"
 
-
-// export const taskListDTO = (data: ITaskModel[]): TaskDTO[] =>
-//   data.map(taskDTO)
 interface TaskDTO {
     id: string
     title: string
@@ -12,7 +9,8 @@ interface TaskDTO {
     description?: string
     dueDate?: Date
     userId: string
-    category?: category
+    category?: category[]
+    createdAt: string
 }
 export const taskDTO = (data: ITaskModel): TaskDTO | null => {
 
@@ -25,6 +23,9 @@ export const taskDTO = (data: ITaskModel): TaskDTO | null => {
         priority: data.priority,
         description: data.description,
         dueDate: data.dueDate,
-        category: data.category
+        category: data.category,
+        createdAt: data.createdAt.toUTCString()
     }
 }
+
+export const taskListDTO = (data: ITaskModel[]): (TaskDTO | null)[] => data.map(taskDTO)

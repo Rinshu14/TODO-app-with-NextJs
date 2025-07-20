@@ -36,7 +36,6 @@ const userSchema = new Schema<IUserModel>({
         required: true,
         trim: true,
         immutable: true,
-       // unique: true,
         validate: (data: string) => { return isEmail(data); }
     },
     password: {

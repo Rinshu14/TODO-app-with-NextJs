@@ -26,7 +26,9 @@ export interface ITaskModel extends Document {
     description?: string
     dueDate?: Date
     userId: string
-    category?: category
+    category?: category[]
+    createdAt:Date
+    
 }
 
 
@@ -45,8 +47,20 @@ const taskSchema = new Schema<ITaskModel>({
         type: String,
         maxlength: 300
     },
-    dueDate: Date,
-    category: String,
+    dueDate: {
+
+        type: new Schema({
+            date: {
+                type: Date,
+                required: true
+            },
+            timezone: {
+                type: String,
+                required: true
+            }
+        }, { _id: false })
+    },
+    category: [],
     userId: {
         type: String,
         require: true
@@ -55,6 +69,6 @@ const taskSchema = new Schema<ITaskModel>({
 
 }, { timestamps: true })
 
-const Task =  model<ITaskModel>("Task", taskSchema)
+const Task = model<ITaskModel>("Task", taskSchema)
 
 export default Task

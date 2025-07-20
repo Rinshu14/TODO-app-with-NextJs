@@ -3,11 +3,11 @@ import { useRef } from 'react'
 import { Input } from "./ui/input"
 import { Button } from './ui/button';
 import { Plus } from 'lucide-react';
-import useAPIPost from '@/lib/Hooks/useAPIPost';
-import { taskCategory, taskStatus, taskPriority } from '@/Types/enums';
-// import { useUserStore } from '@/app/store/user--';
+import useAPIPost from '@/lib/Hooks/useAPIRequest';
+import {  taskStatus } from '@/Types/enums';
+
 import useCentralStore from '@/app/store/CentralStore';
-import { taskUrls } from "../lib/Constants/BackendURLS"
+import { httpMethods, taskUrls } from "../lib/Constants/BackendURLS"
 
 
 const SearchBar = () => {
@@ -15,7 +15,7 @@ const SearchBar = () => {
     const inputRef = useRef<null | HTMLInputElement>(null)
     const setTask = useCentralStore((state) => state.setTask)
     const userId = useCentralStore((state) => state.user?.id)
-    const { trigger: addTask, loading } = useAPIPost(taskUrls.addTask, {
+    const { trigger: addTask, loading } = useAPIPost(taskUrls.addTask, httpMethods.post,{
         onSuccess: (data) => {
             setTask(data)
             console.log("in success")
@@ -30,6 +30,7 @@ const SearchBar = () => {
                 userId: userId
             }
             addTask(data)
+            inputRef.current.value=''
         }
 
     }

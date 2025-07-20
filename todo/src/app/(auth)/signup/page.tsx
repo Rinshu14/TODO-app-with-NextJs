@@ -8,14 +8,14 @@ import { Input, Button } from "../../../components"
 import { Eye, EyeOff } from "lucide-react";
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
-import useAPIPost from '@/lib/Hooks/useAPIPost'
-import { authUrls } from "../../../lib/Constants/BackendURLS"
+import useAPIPost from '@/lib/Hooks/useAPIRequest'
+import { authUrls ,httpMethods} from "../../../lib/Constants/BackendURLS"
 
 const SignUp = () => {
 
     const [showPassword, setShowPassword] = useState(false)
     const router = useRouter()
-    const { trigger: signUp, loading } = useAPIPost(authUrls.signup, { onSuccess: () => { router.push('/login') } })
+    const { trigger: signUp, loading } = useAPIPost(authUrls.signup, httpMethods.post,{ onSuccess: () => { router.push('/login') } })
 
     const { register, formState: { errors }, handleSubmit } = useForm<user>({ mode: "onChange", resolver: zodResolver(userschema) })
 

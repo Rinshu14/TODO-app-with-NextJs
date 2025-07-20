@@ -1,6 +1,15 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+
+  /* html,body {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden;
+} */
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -42,7 +51,6 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
   --color-modal-background: var(--mbackground)
-  
 }
 
 :root {
@@ -78,8 +86,8 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
-  --mbackground:oklch(0.98 0 0);
-  
+  --mbackground: oklch(0.98 0 0);
+
 }
 
 .dark {
@@ -114,15 +122,16 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
-  --mbackground:oklch(0.3 0 0)
+  --mbackground: oklch(0.3 0 0)
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
-    @apply bg-background text-foreground ;
+    @apply bg-background text-foreground;
   }
 }
 
@@ -130,4 +139,19 @@
   .bg-modal-background {
     background-color: var(--color-modal-background);
   }
+}
+
+/* global.css */
+.custom-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  /* light gray */
+  border-radius: 4px;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+  background: transparent;
 }

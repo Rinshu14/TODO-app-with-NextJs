@@ -2,23 +2,22 @@ import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer'; // Import the immer middleware
 import userSlice from './userSlice';
 import taskSlice from './taskSlice';
-import { UserSlice, TaskSlice } from './types';
+import uISlice from './UISlice';
+import { UserSlice, TaskSlice,UISlice } from './types';
 import { devtools } from 'zustand/middleware'
+ 
 
 
 // Combine the state interfaces
-export type AppState = UserSlice & TaskSlice;
+export type AppState = UserSlice & TaskSlice & UISlice;
 
 export const useCentralStore = create<AppState>()(
-    //     immer((set, get,store) => ({
-
-    //     ...userSlice(set as any, get as any,store),
-    //     ...taskSlice(set as any, get as any,store),
-    //   }))
+   
     devtools(immer((...a) => ({
 
         ...userSlice(...a),
         ...taskSlice(...a),
+        ...uISlice(...a),
     })), { name: "centralStore" })
 );
 

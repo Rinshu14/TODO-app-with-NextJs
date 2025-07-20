@@ -9,7 +9,7 @@ import { defaultImageUrl } from '@/lib/Constants/AppConstants'
 import { ThemeToggle } from '../components'
 import useCentralStore from '@/app/store/CentralStore'
 
-const Header = ({ userData }) => {
+const Header = ({ userData, taskData }) => {
 
     const router = useRouter()
     const redirectToHome = () => {
@@ -17,6 +17,7 @@ const Header = ({ userData }) => {
     }
 
     const setUser = useCentralStore((state) => state.setUser)
+    const setTasks = useCentralStore((state) => state.setTasks)
     const isLoggedIn = useCentralStore((state) => state.user?.isLoggedIn)
     const photoUrl = useCentralStore((state) => state.user?.photoUrl) || defaultImageUrl
 
@@ -24,12 +25,16 @@ const Header = ({ userData }) => {
         if (userData) {
             setUser({ ...userData, isLoggedIn: true })
         }
-    }, [userData])
+        if (taskData) {
+            setTasks(taskData)
+        }
+    }, [userData,taskData])
 
+   
 
     return (
-        <header className='bg-modal-background h-14  md:px-5'>
-            <nav className='h-[100%] flex items-center justify-between'>
+        <header className='bg-modal-background h-14 md:px-5 '>
+            <nav className='h-[100%] w-full flex items-center justify-between'>
                 <Button variant="ghost" className='h-[100%] p-0 cursor-pointer' onClick={redirectToHome}>TickTask</Button>
                 {isLoggedIn && <>
                     <Input type="text" className='w-lg mx-3' />

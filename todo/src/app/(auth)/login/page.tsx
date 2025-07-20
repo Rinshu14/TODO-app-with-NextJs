@@ -7,9 +7,9 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Input, Button } from "../../../components"
 import { Eye, EyeOff } from "lucide-react";
 import { useRouter } from 'next/navigation'
-import useAPIPost from '@/lib/Hooks/useAPIPost'
+import useAPIPost from '@/lib/Hooks/useAPIRequest'
 import { authUrls } from "../../../lib/Constants/BackendURLS"
-// import { useUserStore } from '@/app/store/user--'
+import {httpMethods} from "../../../lib/Constants/BackendURLS"
 import useCentralStore from '@/app/store/CentralStore'
 
 
@@ -25,9 +25,9 @@ const Login = () => {
     const [showPassword, setShowPassword] = useState(false)
     const router = useRouter();
     const setUser = useCentralStore((state) => state.setUser)
-    const { trigger: login, loading } = useAPIPost(authUrls.login, {
+    const { trigger: login, loading } = useAPIPost(authUrls.login,httpMethods.post, {
         onSuccess: (data) => {
-            // console.log(data)
+          
             router.replace("/")
             if (data) {
                 setUser({ ...data, isLoggedIn: true })

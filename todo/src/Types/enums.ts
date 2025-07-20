@@ -15,3 +15,11 @@ export const  enum taskCategory {
     personal,
     hobbies
 }
+
+
+export enum dueDatedays {
+    today = "Today",
+    tomorrow = "Tomorrow",
+    nextWeek = "Next Week"
+
+}

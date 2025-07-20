@@ -1,9 +1,9 @@
-import { UserSlice, TaskSlice, User } from "./types";
+import { UserSlice, TaskSlice, User ,UISlice} from "./types";
 import { StateCreator } from "zustand";
 import { immer } from 'zustand/middleware/immer'
 
 const userSlice: StateCreator<
-    UserSlice & TaskSlice,
+    UserSlice & TaskSlice & UISlice,
     [],
     [['zustand/immer', never]],
     UserSlice

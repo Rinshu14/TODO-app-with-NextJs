@@ -2,29 +2,15 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/sonner"
-import Header from "@/components/Header";
-import axios from "../lib/axios"
-import { profileUrls } from "../lib/Constants/BackendURLS"
-import { cookies } from 'next/headers'
+import { fetchProfileData, fetchTaskData } from "../lib/dataFetch"
+import RootlayoutClient from "../components/RootlayoutClient";
+
+
 
 export const metadata: Metadata = {
   title: "TickTask",
   description: "A Todo app for organising your day",
 };
-
-const fetchPrfileData = async () => {
-  try {
-    const cookieStore = await cookies()
-    const token = cookieStore.get('token')?.value
-    let responseData = await axios.get(profileUrls.viewProfile, { headers: { "Cookie": `token=${token}` } })
-    return responseData.data.data
-  }
-  catch (ex) {
-    if (ex instanceof Error) {
-      console.log(ex.message)
-    }
-  }
-}
 
 
 export default async function RootLayout({
@@ -32,9 +18,12 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  let data = await fetchPrfileData()
 
- // console.log(data)
+  let userData = await fetchProfileData()
+  let taskData = await fetchTaskData()
+
+
+//  console.log(userData,taskData)
   return (
     <html lang="en" suppressHydrationWarning>
 
@@ -45,12 +34,21 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Header userData={data} />
-          {children}
-          <Toaster richColors expand={true} />
-        </ThemeProvider>
+          <RootlayoutClient userData={userData} taskData={taskData}>
+            {children}
+          </RootlayoutClient>
 
+
+          <Toaster richColors expand={true} />
+        </ThemeProvider >
       </body>
-    </html>
+    </html >
   );
 }
+
+
+
+
+
+
+

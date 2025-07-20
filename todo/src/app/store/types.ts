@@ -15,26 +15,49 @@ export enum category {
     hobbies = "Hobbies"
 }
 
+interface DueDate {
+    date: Date
+    timeZone: string
+
+}
+
 export interface Task {
     id: string
     title: string
     status: status
     priority?: priority
     description?: string
-    dueDate?: Date
+    dueDate?: DueDate
     userId: string
-    category?: category
+    category: category[]
+    createdAt: string
 }
 
 export type TaskActions = {
-    setTask: (user: Task) => void
+    setTasks: (tasks: Task[]) => void
+    setTask: (task: Task) => void
     clearTaskStore: () => void
-    updateTask: (user: Partial<Task>) => void
+    updateTask: (task: Partial<Task>) => void
+    deleteTask: (taskId: string) => void
 }
 
 export type TaskState = {
-    task: Task[] | null
+    task: Task[] 
 }
+
+export interface UI {
+    isSidebarOpen: boolean
+    selectedTask: Task | null
+}
+
+export type UIActions = {
+    setSidebar: (flag: boolean) => void
+    setSelectedTask: (task: Task | null) => void
+    clearSelectedTask: () => void
+    updateSelectedTask: (task: Task) => void
+}
+
+
 
 export interface User {
     id: string
@@ -58,3 +81,4 @@ export type UserState = {
 
 export type UserSlice = UserActions & UserState
 export type TaskSlice = TaskActions & TaskState
+export type UISlice = UIActions & UI

@@ -1,21 +1,24 @@
-import { UserSlice, TaskSlice } from "./types";
+import { UserSlice, TaskSlice, Task, UISlice } from "./types";
 import { StateCreator } from "zustand";
 import { immer } from 'zustand/middleware/immer'
 
 const taskSlice: StateCreator<
-    UserSlice & TaskSlice,
+    UserSlice & TaskSlice & UISlice,
     [],
     [['zustand/immer', never]],
     TaskSlice
 > = immer((set) => ({
     task: [],
 
-    setTask: (task) => {
-        set((state) => {state.task?.push(task)})
+    setTasks: (task: Task[]) => {
+        set((state) => { state.task?.push(...task) })
     },
 
+    setTask: (task: Task) => {
+        set((state) => { state.task?.push(task) })
+    },
     clearTaskStore: () => {
-        set((state) => { state.task = null })
+        set((state) => { state.task =[] })
     },
 
     updateTask: (task) => {
@@ -27,6 +30,13 @@ const taskSlice: StateCreator<
             })
 
 
+        })
+    },
+
+    deleteTask: (taskId) => {
+        set((state) => {
+           let newArr = [...state.task?.filter((item)=> item.id!=taskId)]
+           state.task=[...newArr]
         })
     }
 

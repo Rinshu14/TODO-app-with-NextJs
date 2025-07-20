@@ -1,23 +1,25 @@
 import { useState } from "react"
-import axios from "../../lib/axios";
+import axios from "../axios";
 import { toast } from "sonner"
 import { APIResponses } from "../Constants/BackendConstants";
 
-interface useAPIPostOptions<T = any> {
+interface useAPIRequestOptions<T = any> {
     onSuccess?: (data: T) => void;
     onError?: (data: T) => void;
 }
 
-const useAPIPost = <T = any>(url: string, options: useAPIPostOptions<T>) => {
+const useAPIRequest = <T = any>(url: string, method: string, options: useAPIRequestOptions<T>,urlParams: string | undefined=undefined) => {
 
     const [loading, setLoading] = useState(false)
-    const trigger = async (data: any) => {
+    const requestUrl = (urlParams) ? `${url}/${urlParams}` : url
+    const trigger = async (data={}) => {
         try {
             setLoading(true)
-            let res = await axios.post(url, data, { withCredentials: true });
+            let res = await axios({ method: method, url: requestUrl, data, withCredentials: true })
+            //await axios.Request(url, data, { withCredentials: true });
             let responseData = res.data;
             if (responseData.status == APIResponses.success) {
-              //  setData(responseData.data)
+
                 toast.success(responseData.message)
                 options?.onSuccess?.(responseData.data)
 
@@ -39,4 +41,4 @@ const useAPIPost = <T = any>(url: string, options: useAPIPostOptions<T>) => {
     return { trigger, loading }
 }
 
-export default useAPIPost
+export default useAPIRequest
